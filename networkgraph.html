@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1500px;
+            height: 1000px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "162.159.136.234", "label": "162.159.136.234", "shape": "dot", "size": 10}, {"id": "192.168.59.232", "label": "192.168.59.232", "shape": "dot", "size": 10}, {"id": "192.168.59.222", "label": "192.168.59.222", "shape": "dot", "size": 10}, {"id": "20.42.73.25", "label": "20.42.73.25", "shape": "dot", "size": 10}, {"id": "23.207.140.125", "label": "23.207.140.125", "shape": "dot", "size": 10}, {"id": "20.42.73.27", "label": "20.42.73.27", "shape": "dot", "size": 10}, {"id": "52.114.15.135", "label": "52.114.15.135", "shape": "dot", "size": 10}, {"id": "52.114.36.17", "label": "52.114.36.17", "shape": "dot", "size": 10}, {"id": "52.114.32.217", "label": "52.114.32.217", "shape": "dot", "size": 10}, {"id": "52.114.36.125", "label": "52.114.36.125", "shape": "dot", "size": 10}, {"id": "52.114.15.99", "label": "52.114.15.99", "shape": "dot", "size": 10}, {"id": "239.255.255.250", "label": "239.255.255.250", "shape": "dot", "size": 10}, {"id": "40.64.66.113", "label": "40.64.66.113", "shape": "dot", "size": 10}, {"id": "142.250.183.99", "label": "142.250.183.99", "shape": "dot", "size": 10}, {"id": "224.0.0.251", "label": "224.0.0.251", "shape": "dot", "size": 10}, {"id": "52.114.15.134", "label": "52.114.15.134", "shape": "dot", "size": 10}, {"id": "162.159.137.232", "label": "162.159.137.232", "shape": "dot", "size": 10}, {"id": "52.111.232.10", "label": "52.111.232.10", "shape": "dot", "size": 10}, {"id": "13.107.136.9", "label": "13.107.136.9", "shape": "dot", "size": 10}, {"id": "162.159.130.235", "label": "162.159.130.235", "shape": "dot", "size": 10}, {"id": "fe80::6836:deff:fe8e:4dda", "label": "fe80::6836:deff:fe8e:4dda", "shape": "dot", "size": 10}, {"id": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "shape": "dot", "size": 10}, {"id": "2620:1ec:42::132", "label": "2620:1ec:42::132", "shape": "dot", "size": 10}, {"id": "2603:1040:401:5::3c", "label": "2603:1040:401:5::3c", "shape": "dot", "size": 10}, {"id": "2603:10b0:91e:8a60:0:1:91:428", "label": "2603:10b0:91e:8a60:0:1:91:428", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:82d::2004", "label": "2404:6800:4009:82d::2004", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:82e::2003", "label": "2404:6800:4009:82e::2003", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:821::200d", "label": "2404:6800:4009:821::200d", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:81c::200a", "label": "2404:6800:4009:81c::200a", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:826::2003", "label": "2404:6800:4009:826::2003", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:826::200e", "label": "2404:6800:4009:826::200e", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:809::200e", "label": "2404:6800:4009:809::200e", "shape": "dot", "size": 10}, {"id": "2404:6800:4003:c04::bc", "label": "2404:6800:4003:c04::bc", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:824::2003", "label": "2404:6800:4009:824::2003", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:82a::2016", "label": "2404:6800:4009:82a::2016", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:823::2003", "label": "2404:6800:4009:823::2003", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:824::2001", "label": "2404:6800:4009:824::2001", "shape": "dot", "size": 10}, {"id": "2600:1901:1:e52::", "label": "2600:1901:1:e52::", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:82d::2003", "label": "2404:6800:4009:82d::2003", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:824::200a", "label": "2404:6800:4009:824::200a", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:81e::200e", "label": "2404:6800:4009:81e::200e", "shape": "dot", "size": 10}, {"id": "2600:1901:1:c36::", "label": "2600:1901:1:c36::", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:82e::200e", "label": "2404:6800:4009:82e::200e", "shape": "dot", "size": 10}, {"id": "2404:6800:4009:829::200e", "label": "2404:6800:4009:829::200e", "shape": "dot", "size": 10}, {"id": "2001:1900:2362:b::1fe", "label": "2001:1900:2362:b::1fe", "shape": "dot", "size": 10}, {"id": "fe80::b187:485c:1480:a849", "label": "fe80::b187:485c:1480:a849", "shape": "dot", "size": 10}, {"id": "ff02::1:2", "label": "ff02::1:2", "shape": "dot", "size": 10}, {"id": "ff02::fb", "label": "ff02::fb", "shape": "dot", "size": 10}, {"id": "6a:36:de:8e:4d:da", "label": "6a:36:de:8e:4d:da", "shape": "dot", "size": 10}, {"id": "Chongqin_01:09:6b", "label": "Chongqin_01:09:6b", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Info": "2247  \u003e  443 [ACK] Seq=52 Ack=15709 Win=3575 Len=0", "Length": 54, "No.": 4795, "Protocol": "TCP", "Time": 36.173363, "from": "162.159.136.234", "label": 1, "to": "192.168.59.232", "weight": 1}, {"Info": "Standard query 0x3268 A nexusrules.officeapps.live.com", "Length": 90, "No.": 4846, "Protocol": "DNS", "Time": 38.107651, "from": "192.168.59.232", "label": 1, "to": "192.168.59.222", "weight": 1}, {"Info": "[TCP Dup ACK 187#1] 443  \u003e  1050 [ACK] Seq=7615 Ack=22914 Win=524800 Len=0", "Length": 54, "No.": 223, "Protocol": "TCP", "Time": 4.385981, "from": "192.168.59.232", "label": 1, "to": "20.42.73.25", "weight": 1}, {"Info": "2262  \u003e  443 [RST, ACK] Seq=2 Ack=32 Win=0 Len=0", "Length": 54, "No.": 20, "Protocol": "TCP", "Time": 1.433118, "from": "192.168.59.232", "label": 1, "to": "23.207.140.125", "weight": 1}, {"Info": "443  \u003e  1032 [ACK] Seq=1 Ack=2 Win=2047 Len=0 SLE=1 SRE=2", "Length": 66, "No.": 4618, "Protocol": "TCP", "Time": 31.522884, "from": "192.168.59.232", "label": 1, "to": "20.42.73.27", "weight": 1}, {"Info": "443  \u003e  1041 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0", "Length": 54, "No.": 2544, "Protocol": "TCP", "Time": 17.637053, "from": "192.168.59.232", "label": 1, "to": "52.114.15.135", "weight": 1}, {"Info": "[TCP Dup ACK 694#1] 1056  \u003e  443 [ACK] Seq=8170 Ack=8868 Win=64768 Len=0 SLE=8662 SRE=8868", "Length": 66, "No.": 739, "Protocol": "TCP", "Time": 10.350032, "from": "192.168.59.232", "label": 1, "to": "52.114.36.17", "weight": 1}, {"Info": "[TCP Retransmission] 443  \u003e  1060 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1400 WS=256 SACK_PERM=1", "Length": 66, "No.": 418, "Protocol": "TCP", "Time": 7.643065, "from": "192.168.59.232", "label": 1, "to": "52.114.32.217", "weight": 1}, {"Info": "1062  \u003e  443 [ACK] Seq=2605 Ack=20754 Win=65792 Len=0", "Length": 54, "No.": 402, "Protocol": "TCP", "Time": 6.887648, "from": "192.168.59.232", "label": 1, "to": "52.114.36.125", "weight": 1}, {"Info": "443  \u003e  1048 [ACK] Seq=2407 Ack=523 Win=2045 Len=0", "Length": 54, "No.": 578, "Protocol": "TCP", "Time": 9.593097, "from": "192.168.59.232", "label": 1, "to": "52.114.15.99", "weight": 1}, {"Info": "M-SEARCH * HTTP/1.1 ", "Length": 217, "No.": 1066, "Protocol": "SSDP", "Time": 11.897282, "from": "192.168.59.232", "label": 1, "to": "239.255.255.250", "weight": 1}, {"Info": "1068  \u003e  443 [ACK] Seq=2094 Ack=5460 Win=65792 Len=0", "Length": 54, "No.": 930, "Protocol": "TCP", "Time": 11.392248, "from": "192.168.59.232", "label": 1, "to": "40.64.66.113", "weight": 1}, {"Info": "1071  \u003e  443 [ACK] Seq=592 Ack=5303 Win=64512 Len=0", "Length": 54, "No.": 790, "Protocol": "TCP", "Time": 10.645295, "from": "192.168.59.232", "label": 1, "to": "142.250.183.99", "weight": 1}, {"Info": "Standard query 0x0000 PTR _googlecast._tcp.local, \"QM\" question", "Length": 82, "No.": 1351, "Protocol": "MDNS", "Time": 14.402685, "from": "192.168.59.232", "label": 1, "to": "224.0.0.251", "weight": 1}, {"Info": "443  \u003e  1039 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0", "Length": 54, "No.": 1439, "Protocol": "TCP", "Time": 16.63591, "from": "192.168.59.232", "label": 1, "to": "52.114.15.134", "weight": 1}, {"Info": "443  \u003e  1024 [ACK] Seq=1 Ack=2 Win=8 Len=0 SLE=1 SRE=2", "Length": 66, "No.": 3695, "Protocol": "TCP", "Time": 28.293943, "from": "192.168.59.232", "label": 1, "to": "162.159.137.232", "weight": 1}, {"Info": "Continuation Data", "Length": 83, "No.": 4845, "Protocol": "SSL", "Time": 37.925501, "from": "192.168.59.232", "label": 1, "to": "52.111.232.10", "weight": 1}, {"Info": "443  \u003e  1034 [ACK] Seq=1 Ack=2 Win=16383 Len=0 SLE=1 SRE=2", "Length": 66, "No.": 4510, "Protocol": "TCP", "Time": 30.232942, "from": "192.168.59.232", "label": 1, "to": "13.107.136.9", "weight": 1}, {"Info": "443  \u003e  1026 [ACK] Seq=1 Ack=2 Win=8 Len=0 SLE=1 SRE=2", "Length": 66, "No.": 4650, "Protocol": "TCP", "Time": 32.965937, "from": "192.168.59.232", "label": 1, "to": "162.159.130.235", "weight": 1}, {"Info": "Neighbor Advertisement 2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0 (sol, ovr) is at 40:5b:d8:01:09:6b", "Length": 86, "No.": 4497, "Protocol": "ICMPv6", "Time": 30.008131, "from": "fe80::6836:deff:fe8e:4dda", "label": 1, "to": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "weight": 1}, {"Info": "1051  \u003e  443 [ACK] Seq=27010 Ack=11971 Win=65792 Len=0", "Length": 74, "No.": 417, "Protocol": "TCP", "Time": 7.581012, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2620:1ec:42::132", "weight": 1}, {"Info": "1063  \u003e  443 [ACK] Seq=7906 Ack=6874 Win=64512 Len=0", "Length": 74, "No.": 1594, "Protocol": "TCP", "Time": 16.852263, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2603:1040:401:5::3c", "weight": 1}, {"Info": "443  \u003e  10284 [RST] Seq=1 Win=0 Len=0", "Length": 74, "No.": 428, "Protocol": "TCP", "Time": 8.668685, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2603:10b0:91e:8a60:0:1:91:428", "weight": 1}, {"Info": "443  \u003e  1066 [ACK] Seq=4402 Ack=593 Win=66816 Len=0", "Length": 74, "No.": 3240, "Protocol": "TCP", "Time": 19.614698, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:82d::2004", "weight": 1}, {"Info": "443  \u003e  1064 [ACK] Seq=6051 Ack=1083 Win=68864 Len=0", "Length": 74, "No.": 593, "Protocol": "TCP", "Time": 9.722746, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:82e::2003", "weight": 1}, {"Info": "443  \u003e  1065 [ACK] Seq=7806 Ack=3071 Win=72448 Len=0", "Length": 74, "No.": 590, "Protocol": "TCP", "Time": 9.660389, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:821::200d", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 87, "No.": 3558, "Protocol": "QUIC", "Time": 22.234668, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:81c::200a", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 87, "No.": 4760, "Protocol": "QUIC", "Time": 35.719154, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:826::2003", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 87, "No.": 3580, "Protocol": "QUIC", "Time": 24.331247, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:826::200e", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 88, "No.": 4740, "Protocol": "QUIC", "Time": 35.493024, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:809::200e", "weight": 1}, {"Info": "5228  \u003e  1074 [ACK] Seq=25365 Ack=904 Win=67840 Len=0", "Length": 74, "No.": 1039, "Protocol": "TCP", "Time": 11.685107, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4003:c04::bc", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 90, "No.": 1122, "Protocol": "QUIC", "Time": 12.431069, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:824::2003", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 89, "No.": 2629, "Protocol": "QUIC", "Time": 17.730664, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:82a::2016", "weight": 1}, {"Info": "1084  \u003e  443 [ACK] Seq=592 Ack=5309 Win=64768 Len=0", "Length": 74, "No.": 3340, "Protocol": "TCP", "Time": 19.921997, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:823::2003", "weight": 1}, {"Info": "1082  \u003e  443 [ACK] Seq=592 Ack=8667 Win=64256 Len=0", "Length": 74, "No.": 2764, "Protocol": "TCP", "Time": 17.831859, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:824::2001", "weight": 1}, {"Info": "1030  \u003e  443 [ACK] Seq=44 Ack=41 Win=256 Len=0", "Length": 74, "No.": 3101, "Protocol": "TCP", "Time": 18.633117, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2600:1901:1:e52::", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 87, "No.": 3424, "Protocol": "QUIC", "Time": 20.171822, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:82d::2003", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 88, "No.": 3539, "Protocol": "QUIC", "Time": 20.621992, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:824::200a", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 87, "No.": 4616, "Protocol": "QUIC", "Time": 31.345921, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:81e::200e", "weight": 1}, {"Info": "443  \u003e  33510 [ACK] Seq=1 Ack=2 Win=261 Len=0 SLE=1 SRE=2", "Length": 86, "No.": 4592, "Protocol": "TCP", "Time": 30.795911, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2600:1901:1:c36::", "weight": 1}, {"Info": "1094  \u003e  443 [ACK] Seq=592 Ack=7724 Win=64768 Len=0", "Length": 74, "No.": 4709, "Protocol": "TCP", "Time": 34.406797, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:82e::200e", "weight": 1}, {"Info": "Protected Payload (KP0)", "Length": 87, "No.": 4843, "Protocol": "QUIC", "Time": 36.770868, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2404:6800:4009:829::200e", "weight": 1}, {"Info": "1052  \u003e  80 [FIN, ACK] Seq=1 Ack=1 Win=257 Len=0", "Length": 74, "No.": 4844, "Protocol": "TCP", "Time": 37.924867, "from": "2401:4900:5607:5efe:85e2:a0ed:cd6:d7c0", "label": 1, "to": "2001:1900:2362:b::1fe", "weight": 1}, {"Info": "Solicit XID: 0x90c27a CID: 000100012a6d27f698e74325f28a ", "Length": 157, "No.": 425, "Protocol": "DHCPv6", "Time": 7.885004, "from": "fe80::b187:485c:1480:a849", "label": 1, "to": "ff02::1:2", "weight": 1}, {"Info": "Standard query 0x0000 PTR _googlecast._tcp.local, \"QM\" question", "Length": 102, "No.": 1352, "Protocol": "MDNS", "Time": 14.405211, "from": "fe80::b187:485c:1480:a849", "label": 1, "to": "ff02::fb", "weight": 1}, {"Info": "192.168.59.232 is at 40:5b:d8:01:09:6b", "Length": 42, "No.": 4739, "Protocol": "ARP", "Time": 35.479294, "from": "6a:36:de:8e:4d:da", "label": 1, "to": "Chongqin_01:09:6b", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
